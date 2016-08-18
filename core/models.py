@@ -1,9 +1,9 @@
 # coding=utf-8
 from __future__ import unicode_literals
-from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import PermissionsMixin, BaseUserManager, AbstractBaseUser
 from django.db import models
 from django.utils import timezone
+
 
 class UserManager(BaseUserManager):
     def _create_user(self, email, password, is_staff, is_superuser, is_active, **extra_fields):
