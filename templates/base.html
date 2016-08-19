@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>{% block title %}VsePolomki.ru{% endblock %}</title>
+    <link href="{% static 'core/css/modal.css' %}" rel="stylesheet"/>
+    <link rel="shortcut icon" href="{% static 'core/img/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'core/css/list.css' %}">
+	<link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'core/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'core/css/bootstrap-theme.css' %}" media="screen" >
+	<link rel="stylesheet" href="{% static 'core/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/buttons.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bad+Script|El+Messiri|Jura|Kurale|Neucha&subset=arabic,cyrillic">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neucha&subset=cyrillic">
+
+    <script type="text/javascript" src="{% static 'core/js/jquery-1.4.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'core/js/custom.js' %}"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="{% static 'core/js/headroom.min.js' %}"></script>
+	<script src="{% static 'core/js/jQuery.headroom.min.js' %}"></script>
+	<script src="{% static 'core/js/template.js' %}"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author"      content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+</head>
+<body class="home">
+    <a href="#x" class="overlay" id="login_form"></a>
+	<div class="popup">
+		<h2>Здравствуйте!</h2>
+		<p>Введите ваш логин и пароль.</p>
+		<div>
+			<label for="login">Логин</label><br>
+			<input type="text" id="login" value="" /><br>
+			<label for="password">Пароль</label><br>
+			<input type="password" id="password" value="" />
+		</div>
+		<button class="btn btn-action btn-">Войти</button><br>
+		ИЛИ <br/>
+		<button class="btn btn-default"><a href="#join_form" id="join_pop">Зарегистрироваться</a></button>
+	</div>
+
+	<!-- РЕГИСТРАЦИЯ -->
+	<a href="#x" class="overlay" id="join_form"></a>
+	<div class="popup">
+		<h2>Регистрация</h2>
+		<p>Пожалуйста, введите ваши данные.</p>
+		<div>
+			<label for="email">Login (Email)</label>
+			<input type="text" id="email" value="" />
+		</div>
+		<div>
+			<label for="pass">Пароль</label>
+			<input type="password" id="pass" value="" />
+		</div>
+		<div>
+			<label for="firstname">Имя</label>
+			<input type="text" id="firstname" value="" />
+		</div>
+		<div>
+			<label for="lastname">Фамилия</label>
+			<input type="text" id="lastname" value="" />
+		</div>
+		<button class="btn btn-action">Зарегистрироваться</button>&nbsp;&nbsp;&nbsp;ИЛИ&nbsp;&nbsp;&nbsp;<button class="btn btn-default"><a href="#login_form" id="login_pop">Войти</a></button>
+	</div>
+
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span><span class="icon-bar"></span> <span class="icon-bar"></span><font size="3" color=#FF8C00 face="Arial"><b>МЕНЮ</b></font></button>
+				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png"></a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li class="active"><a href="#">Главная</a></li>
+					<li><a href="about.html">Диагностика</a></li>
+					<li><a href="about.html">Контакты</a></li>
+					<li><a class="btn" href="#login_form" id="login_pop">ВОЙТИ</a></li>
+                   <!-- <li><a class="btn" href="#join_form" id="join_pop">РЕГИСТРАЦИЯ</a></li>-->
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+    {% block content %}
+    {% endblock %}
+	<footer id="footer" class="top-space">
+		<div class="footer1">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 widget">
+						<h3 class="widget-title">Контакты</h3>
+						<div class="widget-body">
+							<p>(499) *** ** **<br>
+								<a href="mailto:#">info@VsePolomki.ru</a><br>
+								<br>
+							</p>
+						</div>
+					</div>
+					<div class="col-md-3 widget">
+					</div>
+					<div class="col-md-6 widget">
+						<h3 class="widget-title">VsePolomki.ru - Ваш личный автоеханик</h3>
+						<div class="widget-body">
+                            <img src="images/VK.png" height="28px">&nbsp;&nbsp;<img src="images/mail.png" height="28px">&nbsp;&nbsp;<img src="images/Twitter.png" height="28px">&nbsp;&nbsp;<img src="images/Google.png" height="28px">
+						</div>
+					</div>
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+		<div class="footer2">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							<p class="simplenav">
+								<a href="#">Главная</a> |
+								<a href="about.html">Диагностика</a> |
+								<a href="#">Контакты</a> |
+								<b><a href="#login_form" id="login_pop">Войти</a></b>
+							</p>
+						</div>
+					</div>
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							<p class="text-right">
+								Copyright &copy; 2016.
+							</p>
+						</div>
+					</div>
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+	</footer>
+</body>
+</html>
