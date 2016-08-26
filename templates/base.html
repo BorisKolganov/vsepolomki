@@ -51,7 +51,6 @@
 		<button class="btn btn-default"><a href="#join_form" id="join_pop">Зарегистрироваться</a></button>
 	</div>
 
-	<!-- РЕГИСТРАЦИЯ -->
 	<a href="#x" class="overlay" id="join_form"></a>
 	<div class="popup">
 		<h2>Регистрация</h2>
@@ -81,7 +80,7 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span><span class="icon-bar"></span> <span class="icon-bar"></span><font size="3" color=#FF8C00 face="Arial"><b>МЕНЮ</b></font></button>
-				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png"></a>
+				<a class="navbar-brand" href="{% url 'core:index' %}"><img src="{% static 'core/img/logo.png' %}"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
@@ -114,8 +113,10 @@
 					<div class="col-md-6 widget">
 						<h3 class="widget-title">VsePolomki.ru - Ваш личный автоеханик</h3>
 						<div class="widget-body">
-                            <img src="images/VK.png" height="28px">&nbsp;&nbsp;<img src="images/mail.png" height="28px">&nbsp;&nbsp;<img src="images/Twitter.png" height="28px">&nbsp;&nbsp;<img src="images/Google.png" height="28px">
-						</div>
+                            <script src="http://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+                            <script src="http://yastatic.net/share2/share.js"></script>
+                            <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,moimir,gplus,twitter"></div>
+                        </div>
 					</div>
 				</div> <!-- /row of widgets -->
 			</div>
