@@ -4,6 +4,7 @@
 $(document).ready(function () {
     var brandSelect = $('.brand-select');
     var modelSelect = $('.model-select');
+    var yearSelect = $('.year-select');
     var modificationSelect = $('.modification-select');
     brandSelect.change(function (event) {
         var target = $(event.target);
@@ -27,6 +28,22 @@ $(document).ready(function () {
             target.data('url'),
             {
                 model_id: target.val()
+            }
+        ).done(function (data) {
+            yearSelect.empty();
+            $.each(data['years'], function (key, value) {
+                yearSelect.append($("<option></option>").attr("value", value + "," + target.val()).text(value));
+            });
+            yearSelect.trigger('change');
+        })
+    });
+    yearSelect.change(function (event) {
+        var target = $(event.target);
+        var val = target.val().split(',');
+        $.get(target.data('url'),
+            {
+                year: val[0],
+                model_id: val[1]
             }
         ).done(function (data) {
             modificationSelect.empty();

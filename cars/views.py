@@ -2,7 +2,7 @@ from itertools import groupby
 
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render
-
+from itertools import chain
 # Create your views here.
 from django.views.generic import TemplateView, View
 from cars.models import CarBrand, CarModel, CarModification, BreakdownType, Breakdown
@@ -27,13 +27,28 @@ class AjaxCarsModels(View):
         return JsonResponse({"models": [{"id": model.id, "name": model.name} for model in models]})
 
 
-class AjaxCarsModifications(View):
-    def get(self, request):
+class AjaxCarsYears(View):
+    def get(self,  request):
         try:
             model_id = int(request.GET.get('model_id'))
         except (ValueError, TypeError):
             return HttpResponseBadRequest()
-        modifications = CarModification.objects.filter(car_model_id=model_id)
+        cms = CarModification.objects.filter(car_model_id=model_id)
+        intervals = [(cm.year_from, cm.year_to + 1) for cm in cms]
+        years_list = chain.from_iterable([[i for i in range(*interval)] for interval in intervals])
+        return JsonResponse({
+            "years": sorted(set(years_list))
+        })
+
+
+class AjaxCarsModifications(View):
+    def get(self, request):
+        try:
+            model_id = int(request.GET.get('model_id'))
+            year = int(request.GET.get('year'))
+        except (ValueError, TypeError):
+            return HttpResponseBadRequest()
+        modifications = CarModification.objects.filter(car_model_id=model_id, year_from__lte=year, year_to__gte=year)
         return JsonResponse({"modifications": [{"id": modification.id, "name": modification.__unicode__()} for modification in modifications]})
 
 

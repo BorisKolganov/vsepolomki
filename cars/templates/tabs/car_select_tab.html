@@ -1,0 +1,39 @@
+ <div class="row">
+    <article class="col-md-9 maincontent">
+        <header class="page-header">
+            <h4 class="page-title" style="font-size:30px" ><b>Привет!</b></h4>
+            <h5 class="page-title" style="font-size:24px">Для того, что бы начать поиск поломки, Вам необходимо выбрать марку, модель и год выпуска автомобиля.</h5>
+        </header>
+        <div class="container con1" style="max-width:480px;">
+            <div class="row">
+                <label>
+                    Марка
+                    <select class="col-sm-12 brand-select" style="height: 45px; width: 190px; margin:10px" tabindex="1"  data-url="{% url 'cars:cars_models' %}">
+                        {% for car_brand in cars_brands %}
+                            <option value="{{ car_brand.id }}">{{ car_brand }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>
+                    Модель
+                    <select class="col-sm-12 model-select" style="height: 45px; width: 190px; margin:10px" tabindex="2" data-url="{% url 'cars:cars_years' %}">
+                    </select>
+                </label>
+            </div>
+            <div class="row">
+                <label>
+                    Год выпуска
+                    <select class="col-sm-12 year-select" style="height: 45px; width: 190px; margin:10px" tabindex="3" data-url="{% url 'cars:cars_modifications' %}">
+                    </select>
+                </label>
+                <label>
+                    Комплектация
+                    <select class="col-sm-12 modification-select" style="height: 45px; width: 190px; margin:10px" tabindex="3">
+                    </select>
+                </label>
+            </div>
+            <br />
+            <a class="btn btn-action btn-general" role="button" style="" href="">Продолжить</a>
+        </div>
+    </article>
+</div>

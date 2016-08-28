@@ -61,7 +61,8 @@ class CarModification(models.Model):
     engine_volume = models.IntegerField(verbose_name=u'Объем двигателя', null=True, blank=True)
     horsepower = models.IntegerField(verbose_name=u'Лошадиные силы', null=True, blank=True)
     drive = models.IntegerField(choices=DRIVE_TYPES, default=0, verbose_name=u'Тип привода')
-    year = models.IntegerField(choices=YEARS, verbose_name=u'Год выпуска', null=True)
+    year_from = models.IntegerField(choices=YEARS, verbose_name=u'С какого года', null=True)
+    year_to = models.IntegerField(choices=YEARS, verbose_name=u'По какой год', null=True)
 
     def __unicode__(self):
         return self.car_model.__unicode__() + ' ' + self.get_engine_type_display() + ' ' + str(self.engine_volume) + ' ' + self.get_transmission_type_display()
