@@ -41,7 +41,8 @@ INSTALLED_APPS = [
 
 PROJECT_APPS = [
     'core',
-    'cars'
+    'cars',
+    'services'
 ]
 
 INSTALLED_APPS += PROJECT_APPS
