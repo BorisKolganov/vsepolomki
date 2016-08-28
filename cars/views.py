@@ -1,12 +1,12 @@
 from itertools import groupby
 
 from django.http import JsonResponse, HttpResponseBadRequest
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from itertools import chain
 # Create your views here.
 from django.views.generic import TemplateView, View
 from cars.models import CarBrand, CarModel, CarModification, BreakdownType, Breakdown
-
+from services.models import Service, Work
 
 class BreakdownSearch(TemplateView):
     template_name = 'breakdown_search.html'
@@ -63,7 +63,21 @@ class AjaxBreakdowns(View):
             }
             for g in group:
                 breakdown['nodes'].append({
-                    'text': g.name
+                    'text': g.name,
+                    'href': '#' + str(g.id)
                 })
             context['breakdowns'].append(breakdown)
+        return JsonResponse(context)
+
+
+class AjaxBreakdown(View):
+    def get(self, request):
+        try:
+            breakdown_id = int(request.GET.get('breakdown_id'))
+        except (ValueError, TypeError):
+            return HttpResponseBadRequest()
+        breakdown = get_object_or_404(Breakdown, id=breakdown_id)
+        services_list = Work.objects.filter(breakdown_id=breakdown_id).values_list('service', flat=True)
+        services = Service.objects.filter(id_in=services_list)
+        context = {'breakdown': breakdown, 'services': services}
         return JsonResponse(context)

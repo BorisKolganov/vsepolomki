@@ -3,9 +3,6 @@
 {% block title %}
     Все поломки тут
 {% endblock %}
-{% block css %}
-    <link rel="stylesheet" href="{% static 'cars/css/chosen.css' %}">
-{% endblock %}
 {% block script %}
     <script src="{% static 'cars/js/bootstrap-treeview.js' %}"></script>
 {% endblock %}
@@ -13,9 +10,9 @@
     <div class="container" style="margin-top:100px;min-height:600px;">
         <!-- Навигационная панель с 3 вкладками -->
         <ul class="nav nav-tabs" role="tablist" id="Tab1">
-            <li class="active"><a href="#St1" role="tab" data-toggle="tab">Шаг 1.</a></li>
-            <li><a href="#St2" role="tab" data-toggle="tab">Шаг 2.</a></li>
-            <li><a href="#St3" role="tab" data-toggle="tab">Шаг 3.</a></li>
+            <li class="tab-0 active"><a href="#St1" role="tab" data-toggle="tab">Шаг 1.</a></li>
+            <li class="tab-1" style="display: none"><a href="#St2" role="tab" data-toggle="tab">Шаг 2.</a></li>
+            <li class="tab-2" style="display: none"><a href="#St3" role="tab" data-toggle="tab">Шаг 3.</a></li>
         </ul>
         <!-- Содержимое вкладок -->
         <div class="tab-content col-md-9" >
@@ -65,15 +62,37 @@
     </div>
     <script type="text/javascript">
   		$(document).ready(function() {
+            var tab0 = $('.tab-0');
+            var tab1 = $('.tab-1');
+            var tab2 = $('.tab-2');
             $.get(
                 '{% url 'cars:breakdowns' %}'
             ).done(function(data){
                 $('#treeview12').treeview({
                     levels: 1,
-                    data: data['breakdowns']
+                    data: data['breakdowns'],
+                    enableLinks: true
                 });
             });
+            $(".btn-car").click(function (event) {
+                event.preventDefault();
+                tab1.show();
+                $(".nav-tabs li:eq(1) a").tab('show');
+            });
+            $(".btn-breakdown").click(function (event) {
+                event.preventDefault();
+                tab2.show();
+                $('.nav-tabs li:eq(2) a').tab('show');
+            });
+            tab0.click(function () {
+                tab1.hide();
+                tab2.hide();
+            });
+            tab1.click(function () {
+               tab2.hide();
+            })
         });
+
   	</script>
     <script type="text/javascript" src="{% static 'cars/js/ajaxloads.js' %}"></script>
 {% endblock %}
