@@ -28,7 +28,7 @@ class Work(models.Model):
         verbose_name_plural = u'Работы-цены'
 
     service = models.ForeignKey(Service, verbose_name=u'Автосервис', null=True)
-    breakdown = models.OneToOneField(Breakdown, verbose_name=u'Поломка')
+    breakdown = models.ForeignKey(Breakdown, verbose_name=u'Поломка')
     price = models.PositiveIntegerField(default=0, verbose_name=u'Цена')
 
     def __unicode__(self):
