@@ -101,7 +101,7 @@ class Breakdown(models.Model):
     def __unicode__(self):
         return self.name
 
-    def as_dict(self, price=False):
+    def as_dict(self, price=False, brand_id=None):
         from services.models import Work
         dict = {
             'name': self.name,
@@ -111,7 +111,7 @@ class Breakdown(models.Model):
             'symptoms': self.symptoms
         }
         if price:
-            min_max_dict = Work.objects.filter(breakdown=self).aggregate(min=Min('price'), max=Max('price'))
+            min_max_dict = Work.objects.filter(breakdown=self, brand_id=brand_id).aggregate(min=Min('price'), max=Max('price'))
             dict.update({
                 'price': str(min_max_dict['min']) + '-' + str(min_max_dict['max'])
             })

@@ -99,7 +99,10 @@
                                            <td><%= price %></td></tr>");
                     $.get(
                         '{% url 'cars:breakdown' %}',
-                            {breakdown_id: id}
+                            {
+                                breakdown_id: id,
+                                brand: $('.brand-select').val()
+                            }
                     ).done(function (data) {
                         breakdownDescription.html(breakdownDescriptionTemplate(data.breakdown));
                         breakdownName.html(data.breakdown.name);

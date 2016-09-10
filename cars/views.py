@@ -75,11 +75,12 @@ class AjaxBreakdown(View):
     def get(self, request):
         try:
             breakdown_id = int(request.GET.get('breakdown_id'))
+            brand = int(request.GET.get('brand'))
         except (ValueError, TypeError):
             return HttpResponseBadRequest()
         breakdown = get_object_or_404(Breakdown, id=breakdown_id)
         services_list = Work.objects.filter(breakdown_id=breakdown_id).values_list('service', flat=True)
-        services = Service.objects.filter(id__in=services_list)
+        services = Service.objects.filter(id__in=services_list, work__brand=brand, work__breakdown_id=breakdown_id)
         services = [service.as_dict(breakdown.id) for service in services]
-        context = {'breakdown': breakdown.as_dict(price=True), 'services': services}
+        context = {'breakdown': breakdown.as_dict(price=True, brand_id=brand), 'services': services}
         return JsonResponse(context)

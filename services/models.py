@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from core.models import User
-from cars.models import Breakdown
+from cars.models import Breakdown, CarBrand
 
 
 class Service(models.Model):
@@ -42,6 +42,7 @@ class Work(models.Model):
         verbose_name_plural = u'Работы-цены'
 
     service = models.ForeignKey(Service, verbose_name=u'Автосервис', null=True)
+    brand = models.ForeignKey(CarBrand, verbose_name=u'Марка машины', null=True)
     breakdown = models.ForeignKey(Breakdown, verbose_name=u'Поломка')
     price = models.PositiveIntegerField(default=0, verbose_name=u'Цена')
 
