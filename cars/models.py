@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.db.models import Max, Min
 from django.utils import timezone
 
 
@@ -99,3 +100,19 @@ class Breakdown(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def as_dict(self, price=False):
+        from services.models import Work
+        dict = {
+            'name': self.name,
+            'difficulty': self.get_difficulty_display(),
+            'jobs_types': self.jobs_types,
+            'spares': self.spares,
+            'symptoms': self.symptoms
+        }
+        if price:
+            min_max_dict = Work.objects.filter(breakdown=self).aggregate(min=Min('price'), max=Max('price'))
+            dict.update({
+                'price': str(min_max_dict['min']) + '-' + str(min_max_dict['max'])
+            })
+        return dict

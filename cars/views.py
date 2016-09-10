@@ -1,5 +1,6 @@
 from itertools import groupby
 
+from django.forms import model_to_dict
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404
 from itertools import chain
@@ -78,6 +79,7 @@ class AjaxBreakdown(View):
             return HttpResponseBadRequest()
         breakdown = get_object_or_404(Breakdown, id=breakdown_id)
         services_list = Work.objects.filter(breakdown_id=breakdown_id).values_list('service', flat=True)
-        services = Service.objects.filter(id_in=services_list)
-        context = {'breakdown': breakdown, 'services': services}
+        services = Service.objects.filter(id__in=services_list)
+        services = [service.as_dict(breakdown.id) for service in services]
+        context = {'breakdown': breakdown.as_dict(price=True), 'services': services}
         return JsonResponse(context)

@@ -2,7 +2,6 @@
  * Created by Boris on 23.08.16.
  */
 $(document).ready(function () {
-    
     var brandSelect = $('.brand-select');
     var modelSelect = $('.model-select');
     var yearSelect = $('.year-select');

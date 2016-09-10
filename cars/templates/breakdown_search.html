@@ -83,6 +83,35 @@
                 event.preventDefault();
                 tab2.show();
                 $('.nav-tabs li:eq(2) a').tab('show');
+                var id = Number(window.location.hash.substr(1));
+                if (!isNaN(id)) {
+                    var breakdownDescription = $('.breakdown-description');
+                    var breakdownName = $('.breakdown-name');
+                    var symptoms = $('.symptoms');
+                    var services = $('.services');
+                    var breakdownDescriptionTemplate = _.template("<td class='tab1' data-label='Сложность'><%= difficulty %></td> \
+                                                      <td class='tab1'  data-label='Вид работ'><%= jobs_types %></td> \
+                                                      <td class='tab1' data-label='Необходимые запчасти'><%= spares %></td> \
+                                                      <td class='tab1' data-label='Стоимость ремонта в техцентре'><%= price %></td>");
+                    var serviceTemplate = _.template("<tr><td><%= name %></td> \
+                                           <td><%= address %></td>\
+                                           <td><a href='http://<%= site %>'><%= site %></td>\
+                                           <td><%= price %></td></tr>");
+                    $.get(
+                        '{% url 'cars:breakdown' %}',
+                            {breakdown_id: id}
+                    ).done(function (data) {
+                        breakdownDescription.html(breakdownDescriptionTemplate(data.breakdown));
+                        breakdownName.html(data.breakdown.name);
+                        symptoms.html(data.breakdown.symptoms);
+                        var servicesResult = '';
+                        _.each(data.services, function (service) {
+                            servicesResult += serviceTemplate(service);
+                        });
+                        services.html(servicesResult);
+                    });
+
+                }
             });
             tab0.click(function () {
                 tab1.hide();
@@ -92,7 +121,6 @@
                tab2.hide();
             })
         });
-
   	</script>
     <script type="text/javascript" src="{% static 'cars/js/ajaxloads.js' %}"></script>
 {% endblock %}

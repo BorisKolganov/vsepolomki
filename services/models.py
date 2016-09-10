@@ -11,7 +11,7 @@ class Service(models.Model):
         verbose_name = u'Автосервис'
         verbose_name_plural = u'Автосервисы'
 
-    owner = models.OneToOneField(User, verbose_name=u'Администратор автосервиса', null=True)
+    owner = models.ForeignKey(User, verbose_name=u'Администратор автосервиса', null=True)
     name = models.CharField(max_length=100, verbose_name=u'Название автосервиса')
     phone = models.CharField(max_length=100, verbose_name=u'Номер телефона')
     address = models.CharField(max_length=250, verbose_name=u'Адрес')
@@ -20,6 +20,20 @@ class Service(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def as_dict(self, breakdown_id=None):
+        dict = {
+            'name': self.name,
+            'phone': self.phone,
+            'address': self.address,
+            'about': self.about,
+            'site': self.site
+        }
+        if breakdown_id:
+            dict.update({
+                'price': Work.objects.filter(service=self, breakdown_id=breakdown_id).first().price
+            })
+        return dict
 
 
 class Work(models.Model):
