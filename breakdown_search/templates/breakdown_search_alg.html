@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container" style="margin-top:100px;min-height:600px;">
+    <ul class="nav nav-tabs" role="tablist" id="Tab1">
+        <li class="active"><a href="#St1" role="tab" data-toggle="tab">Шаг 1.</a></li>
+        <li><a href="#St2" role="tab" data-toggle="tab">Шаг 2.</a></li>
+        <li><a href="#St3" role="tab" data-toggle="tab">Шаг 3.</a></li>
+    </ul>
+    <div class="tab-content" >
+        <div class="tab-pane active" id="St1" >
+            {% include 'tabs/car_select_tab.html' %}
+        </div>
+        <div class="tab-pane" id="St2">
+            {% include 'tabs/tree_tab.html' %}
+        </div>
+        <div class="tab-pane " id="St3">
+            {% include 'tabs/service_select_tab.html' %}
+        </div>
+    </div>
+</div>
+    <script>
+    $(document).ready(function () {
+        var questionRowTemplate =
+            _.template('<div class="row"> \
+                <article class="col-md-9 maincontent">\
+                    <% if (!node.root) { %>\
+                    <a class="return-back" href="<%= node.id %>">Назад</a>\
+                    <%}%>\
+                    <header class="page-header" style="margin-top:0px"><br>\
+                        <h1 style="margin-top:0px;font-family: \'jura\'"><b><%= node.name %></b></h1>\
+                        <h3 class="page-title" style="font-family: \'jura\'"><%= node.node_text %></h3>\
+                    </header>\
+                    <% _.each(answers, function(answer) { %> \
+                     <a class="btn btn-action btn-lg answer" style="margin: 1%; width:160px" href="<%= answer.id %>"><%= answer.text %></a>\
+                     <% }); %>\
+                </article>\
+            </div>');
+
+        var questionDest = $('.question-class');
+        $.get('{% url 'breakdown:search' %}').done(function (data) {
+            questionDest.html(questionRowTemplate(data));
+        });
+        
+        $('body').on('click', 'a.answer', function (event) {
+            event.preventDefault();
+            var href = $(this).attr('href');
+            $.get('{% url 'breakdown:search' %}', {
+                node_id: Number(href)
+            }).done(function (data) {
+                questionDest.html(questionRowTemplate(data));
+            })
+        });
+        $('body').on('click', 'a.return-back', function(event){
+            event.preventDefault();
+            var href = $(this).attr('href');
+            $.get('{% url 'breakdown:prev_node' %}', {
+                node_id: Number(href)
+            }).done(function (data) {
+                questionDest.html(questionRowTemplate(data));
+            })
+        })
+
+    });
+    </script>
+{% endblock %}
