@@ -97,6 +97,7 @@ class Breakdown(models.Model):
     jobs_types = models.TextField(max_length=1000, blank=True, verbose_name=u'Виды работ')
     spares = models.TextField(max_length=250, blank=True, verbose_name=u'Запчасти')
     symptoms = models.TextField(max_length=1000, blank=True, verbose_name=u'Симптомы')
+    show_services = models.BooleanField(default=True, verbose_name=u'Показывать автосервисы')
 
     def __unicode__(self):
         return self.name
@@ -109,7 +110,8 @@ class Breakdown(models.Model):
             'difficulty': self.get_difficulty_display(),
             'jobs_types': self.jobs_types,
             'spares': self.spares,
-            'symptoms': self.symptoms
+            'symptoms': self.symptoms,
+            'show_services': self.show_services
         }
         if price:
             min_max_dict = Work.objects.filter(breakdown=self, brand_id=brand_id).aggregate(min=Min('price'), max=Max('price'))

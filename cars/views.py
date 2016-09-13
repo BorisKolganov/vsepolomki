@@ -56,7 +56,7 @@ class AjaxCarsModifications(View):
 class AjaxBreakdowns(View):
     def get(self, request):
         context = {'breakdowns': []}
-        breakdowns = Breakdown.objects.all().select_related('breakdown_type')
+        breakdowns = Breakdown.objects.filter(show_services=True).select_related('breakdown_type')
         for k, group in groupby(breakdowns, lambda x: x.breakdown_type):
             breakdown = {
                 'text': k.name,

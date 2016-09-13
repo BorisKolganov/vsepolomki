@@ -58,8 +58,8 @@
                     <% _.each(node.breakdowns, function(breakdown, index) { %>\
                     <div class="well">\
                     <header class="page-header" style="margin-top:0px"><br>\
-                        <h1 style="margin-top:0px;font-family: \'jura\'">Возможная поломка <%= index+1 %></b></h1>\
-                        <h3 class="page-title" style="font-family: \'jura\'"><%= breakdown.name %></h3>\
+                        <h3 style="margin-top:0px;font-family: \'jura\'">Возможная поломка <%= index+1 %></b></h1>\
+                        <h1 class="page-title" style="font-family: \'jura\'"><%= breakdown.name %></h3>\
                     </header>\
                     <a class="btn btn-success btn-lg breakdown-show" style="margin: 1%;" href="<%= breakdown.id %>">Просмотреть</a>\
                     </div>\
@@ -95,8 +95,8 @@
                 var services = $('.services');
                 var breakdownDescriptionTemplate = _.template("<td class='tab1' data-label='Сложность'><%= difficulty %></td> \
                                                   <td class='tab1'  data-label='Вид работ'><%= jobs_types %></td> \
-                                                  <td class='tab1' data-label='Необходимые запчасти'><%= spares %></td> \
-                                                  <td class='tab1' data-label='Стоимость ремонта в техцентре'><%= price %></td>");
+                                                  <% if (show_services) { %><td class='tab1' data-label='Необходимые запчасти'><%= spares %></td> \
+                                                  <td class='tab1' data-label='Стоимость ремонта в техцентре'><%= price %></td> <% } %>");
                 var serviceTemplate = _.template("<tr><td><%= name %></td> \
                                        <td><%= address %></td>\
                                        <td><a href='http://<%= site %>'><%= site %></td>\
@@ -108,14 +108,26 @@
                             brand: $('.brand-select').val()
                         }
                 ).done(function (data) {
+                    console.log(data);
                     breakdownDescription.html(breakdownDescriptionTemplate(data.breakdown));
                     breakdownName.html(data.breakdown.name);
-                    symptoms.html(data.breakdown.symptoms);
-                    var servicesResult = '';
-                    _.each(data.services, function (service) {
-                        servicesResult += serviceTemplate(service);
-                    });
-                    services.html(servicesResult);
+                    var servicesDest = $('.services-dest');
+                    var symptomsDest = $('.symptoms-dest');
+
+                    if (data.breakdown.show_services){
+                        symptomsDest.show();
+                        symptoms.html(data.breakdown.symptoms);
+                        var servicesResult = '';
+                        _.each(data.services, function (service) {
+                            servicesResult += serviceTemplate(service);
+                        });
+                        servicesDest.show();
+                        services.html(servicesResult);
+                    } else {
+                        servicesDest.hide();
+                        symptomsDest.hide();
+                    }
+
                 });
             }
         });
