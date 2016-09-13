@@ -104,6 +104,7 @@ class Breakdown(models.Model):
     def as_dict(self, price=False, brand_id=None):
         from services.models import Work
         dict = {
+            'id': self.id,
             'name': self.name,
             'difficulty': self.get_difficulty_display(),
             'jobs_types': self.jobs_types,

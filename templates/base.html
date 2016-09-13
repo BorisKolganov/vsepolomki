@@ -38,42 +38,42 @@
 </head>
 <body class="home">
     <a href="#x" class="overlay" id="login_form"></a>
-	<div class="popup">
-		<h2>Здравствуйте!</h2>
-		<p>Введите ваш логин и пароль.</p>
-		<div>
-			<label for="login">Логин</label><br>
-			<input type="text" id="login" value="" /><br>
-			<label for="password">Пароль</label><br>
-			<input type="password" id="password" value="" />
-		</div>
-		<button class="btn btn-action btn-">Войти</button><br>
-		ИЛИ <br/>
-		<button class="btn btn-default"><a href="#join_form" id="join_pop">Зарегистрироваться</a></button>
-	</div>
+{#	<div class="popup">#}
+{#		<h2>Здравствуйте!</h2>#}
+{#		<p>Введите ваш логин и пароль.</p>#}
+{#		<div>#}
+{#			<label for="login">Логин</label><br>#}
+{#			<input type="text" id="login" value="" /><br>#}
+{#			<label for="password">Пароль</label><br>#}
+{#			<input type="password" id="password" value="" />#}
+{#		</div>#}
+{#		<button class="btn btn-action btn-">Войти</button><br>#}
+{#		ИЛИ <br/>#}
+{#		<button class="btn btn-default"><a href="#join_form" id="join_pop">Зарегистрироваться</a></button>#}
+{#	</div>#}
 
 	<a href="#x" class="overlay" id="join_form"></a>
-	<div class="popup">
-		<h2>Регистрация</h2>
-		<p>Пожалуйста, введите ваши данные.</p>
-		<div>
-			<label for="email">Login (Email)</label>
-			<input type="text" id="email" value="" />
-		</div>
-		<div>
-			<label for="pass">Пароль</label>
-			<input type="password" id="pass" value="" />
-		</div>
-		<div>
-			<label for="firstname">Имя</label>
-			<input type="text" id="firstname" value="" />
-		</div>
-		<div>
-			<label for="lastname">Фамилия</label>
-			<input type="text" id="lastname" value="" />
-		</div>
-		<button class="btn btn-action">Зарегистрироваться</button>&nbsp;&nbsp;&nbsp;ИЛИ&nbsp;&nbsp;&nbsp;<button class="btn btn-default"><a href="#login_form" id="login_pop">Войти</a></button>
-	</div>
+{#	<div class="popup">#}
+{#		<h2>Регистрация</h2>#}
+{#		<p>Пожалуйста, введите ваши данные.</p>#}
+{#		<div>#}
+{#			<label for="email">Login (Email)</label>#}
+{#			<input type="text" id="email" value="" />#}
+{#		</div>#}
+{#		<div>#}
+{#			<label for="pass">Пароль</label>#}
+{#			<input type="password" id="pass" value="" />#}
+{#		</div>#}
+{#		<div>#}
+{#			<label for="firstname">Имя</label>#}
+{#			<input type="text" id="firstname" value="" />#}
+{#		</div>#}
+{#		<div>#}
+{#			<label for="lastname">Фамилия</label>#}
+{#			<input type="text" id="lastname" value="" />#}
+{#		</div>#}
+{#		<button class="btn btn-action">Зарегистрироваться</button>&nbsp;&nbsp;&nbsp;ИЛИ&nbsp;&nbsp;&nbsp;<button class="btn btn-default"><a href="#login_form" id="login_pop">Войти</a></button>#}
+{#	</div>#}
 
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
@@ -85,10 +85,10 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="#">Главная</a></li>
-					<li><a href="about.html">Диагностика</a></li>
+					<li class="active"><a href="{% url 'core:index' %}">Главная</a></li>
+					<li><a href="{% url 'breakdown:breakdown_search' %}">Диагностика</a></li>
 					<li><a href="about.html">Контакты</a></li>
-					<li><a class="btn" href="#login_form" id="login_pop">ВОЙТИ</a></li>
+{#					<li><a class="btn" href="#login_form" id="login_pop">ВОЙТИ</a></li>#}
                    <!-- <li><a class="btn" href="#join_form" id="join_pop">РЕГИСТРАЦИЯ</a></li>-->
 				</ul>
 			</div><!--/.nav-collapse -->
@@ -128,10 +128,10 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
-								<a href="#">Главная</a> |
-								<a href="about.html">Диагностика</a> |
-								<a href="#">Контакты</a> |
-								<b><a href="#login_form" id="login_pop">Войти</a></b>
+								<a href="{% url 'core:index' %}">Главная</a> |
+								<a href="{% url 'breakdown:breakdown_search' %}">Диагностика</a> |
+								<a href="#">Контакты</a>
+{#								<b><a href="#login_form" id="login_pop">Войти</a></b>#}
 							</p>
 						</div>
 					</div>

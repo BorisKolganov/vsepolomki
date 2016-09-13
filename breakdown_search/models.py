@@ -11,6 +11,7 @@ class Node(models.Model):
     root_node = models.ForeignKey("self", null=True, blank=True)
     instruction = models.ForeignKey("InstructionStep", null=True, blank=True)
     root = models.BooleanField(default=False)
+    breakdowns = models.ManyToManyField("cars.Breakdown", null=True, blank=True)
 
     def __unicode__(self):
         return self.node_text
@@ -22,10 +23,21 @@ class Node(models.Model):
             'name': self.name,
             'node_text': self.node_text,
             'root': self.root,
-            'instruction': self.instruction
+            'instruction': self.instruction.id if self.instruction else None,
+            'breakdowns': [breakdown.as_dict() for breakdown in self.breakdowns.all()] if self.breakdowns else None
         }
 
 
 class InstructionStep(models.Model):
     text = models.TextField(max_length=1000, blank=True)
-    next_step = models.ForeignKey("self", null=True, blank=True)
+    next_step = models.OneToOneField("self", null=True, blank=True)
+    img = models.ImageField(blank=True, null=True)
+
+    def __unicode__(self):
+        return self.text
+
+    def as_dict(self):
+        return {
+            'text': self.text,
+            'img': self.img.url if self.img else None
+        }
