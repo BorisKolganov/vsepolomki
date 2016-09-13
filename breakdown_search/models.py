@@ -14,7 +14,7 @@ class Node(models.Model):
     breakdowns = models.ManyToManyField("cars.Breakdown", null=True, blank=True)
 
     def __unicode__(self):
-        return self.node_text
+        return self.name + ' ' + self.node_text
 
     def as_dict(self):
         return {

@@ -25,7 +25,7 @@
             _.template('<div class="row"> \
                 <article class="col-md-9 maincontent">\
                     <% if (!node.root) { %>\
-                    <a class="return-back btn btn-warning" href="<%= node.id %>">Назад</a>\
+                    <a class="return-back btn btn-warning" href="<%= node.id %>" style="background-color: #888888">Назад</a>\
                     <br />\
                     <header class="page-header" style="margin-top:0px"><br>\
                         <h1 style="margin-top:0px;font-family: \'jura\'"><b><%= node.name %></b></h1>\
@@ -36,8 +36,8 @@
                      <% }); %>\
                     <%} else { %>\
                      <header class="page-header" style="margin-top:0px"><br>\
-                        <h1 style="margin-top:0px;font-family: \'jura\'"><b><%= node.name %></b></h1>\
-                        <h3 class="page-title" style="font-family: \'jura\'"><%= node.node_text %></h3>\
+                        <h3 style="margin-top:0px;font-family: \'jura\'"><b><%= node.name %></b></h1>\
+                        <h1 class="page-title" style="font-family: \'jura\'"><%= node.node_text %></h3>\
                         <select class="branch-select" style="height: 45px; width: 190px; margin:10px" tabindex="3">\
                         <option value=""> ----- </option>\
                     <% _.each(answers, function(answer) { %>\
@@ -52,7 +52,7 @@
         var breakdownTemplate = _.template('<div class="row"> \
                 <article class="col-md-9 maincontent">\
                 <% if (!node.root) { %>\
-                    <a class="return-back btn btn-action" href="<%= node.id %>">Назад</a>\
+                    <a class="return-back btn btn-warning" href="<%= node.id %>" style="background-color: #888888">Назад</a>\
                     <%}%>\
                     <br /><br /><br />\
                     <% _.each(node.breakdowns, function(breakdown, index) { %>\
@@ -69,12 +69,12 @@
 
         var instructionTemplate = _.template(
                 '<% _.each(steps, function(step) { %> ' +
-                '<div class="thumbnail well">' +
+                '<div class="thumbnail well" style="font-size: 16pt">' +
                         '<div class="caption">'+
                         '<p><%= step.text %></p>'+
                     '</div>'+
                  '<% if (step.img) { %>' +
-                   '<img style="max-width: 300px;" src="<%= step.img %>" >'+
+                   '<img src="<%= step.img %>" >'+
                    '<% } %>'+
                 '</div> <% }) %>');
 
