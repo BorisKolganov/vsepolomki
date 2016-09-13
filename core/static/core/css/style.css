@@ -236,13 +236,13 @@ tr:hover td {
 h4 {
     color:#F06015;
     font-size: 150%;
-    font-family: 'Neucha', cursive;
+    font-family: 'Didact Gothic', sans-serif;
     font-weight:500;
 }
 h5 {
     color:#000;
     font-size: 120%;
-    font-family: 'Neucha', cursive;
-    font-weight:1;
+    font-family: 'Didact Gothic', sans-serif;
+    font-weight: 1;
     text-align: left;
 }
