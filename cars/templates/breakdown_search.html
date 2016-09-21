@@ -110,9 +110,23 @@
                         breakdownName.html(data.breakdown.name);
                         symptoms.html(data.breakdown.symptoms);
                         var servicesResult = '';
-                        _.each(data.services, function (service) {
-                            servicesResult += serviceTemplate(service);
-                        });
+                        if (myMap) {
+                            myMap.geoObjects.removeAll();
+                            _.each(data.services, function (service) {
+                                myMap.geoObjects.add(new ymaps.Placemark([service.longitude, service.latitude], {
+                                        balloonContent: '<strong>' + service.name + '</strong> <br/>' + service.address + '<br /> <a href="'+ service.site +'">'+ service.site +'</a>'
+                                    }, {
+                                        preset: 'islands#dotIcon',
+                                        iconColor: '#735184'
+                                    })
+                                );
+                                servicesResult += serviceTemplate(service);
+                            });
+                        } else {
+                            _.each(data.services, function (service) {
+                                servicesResult += serviceTemplate(service);
+                            });
+                        }
                         services.html(servicesResult);
                     });
 

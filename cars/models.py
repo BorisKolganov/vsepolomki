@@ -98,6 +98,7 @@ class Breakdown(models.Model):
     spares = models.TextField(max_length=250, blank=True, verbose_name=u'Запчасти')
     symptoms = models.TextField(max_length=1000, blank=True, verbose_name=u'Симптомы')
     show_services = models.BooleanField(default=True, verbose_name=u'Показывать автосервисы')
+    mileage = models.IntegerField(default=0, verbose_name=u'не показываеть, если пробег меньше')
 
     def __unicode__(self):
         return self.name
@@ -111,7 +112,7 @@ class Breakdown(models.Model):
             'jobs_types': self.jobs_types,
             'spares': self.spares,
             'symptoms': self.symptoms,
-            'show_services': self.show_services
+            'show_services': self.show_services,
         }
         if price:
             min_max_dict = Work.objects.filter(breakdown=self, brand_id=brand_id).aggregate(min=Min('price'), max=Max('price'))

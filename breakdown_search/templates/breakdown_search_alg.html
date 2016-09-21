@@ -108,7 +108,6 @@
                             brand: $('.brand-select').val()
                         }
                 ).done(function (data) {
-                    console.log(data);
                     breakdownDescription.html(breakdownDescriptionTemplate(data.breakdown));
                     breakdownName.html(data.breakdown.name);
                     var servicesDest = $('.services-dest');
@@ -118,9 +117,24 @@
                         symptomsDest.show();
                         symptoms.html(data.breakdown.symptoms);
                         var servicesResult = '';
-                        _.each(data.services, function (service) {
-                            servicesResult += serviceTemplate(service);
-                        });
+                        if (myMap) {
+                            myMap.geoObjects.removeAll();
+
+                            _.each(data.services, function (service) {
+                                myMap.geoObjects.add(new ymaps.Placemark([service.longitude, service.latitude], {
+                                        balloonContent: '<strong>' + service.name + '</strong> <br/>' + service.address + '<br /> <a href="'+ service.site +'">'+ service.site +'</a>'
+                                    }, {
+                                        preset: 'islands#dotIcon',
+                                        iconColor: '#735184'
+                                    })
+                                );
+                                servicesResult += serviceTemplate(service);
+                            });
+                        } else {
+                            _.each(data.services, function (service) {
+                                servicesResult += serviceTemplate(service);
+                            });
+                        }
                         servicesDest.show();
                         services.html(servicesResult);
                     } else {
@@ -136,7 +150,8 @@
             event.preventDefault();
             var href = $(this).attr('href');
             $.get('{% url 'breakdown:search' %}', {
-                node_id: Number(href)
+                node_id: Number(href),
+                mileage: Number($('.mileage').val())
             }).done(function (data) {
                 if (data.node.instruction) {
                     $.get('{% url 'breakdown:instruction' %}', {
@@ -160,9 +175,7 @@
         $('body').on('click', 'a.return-back', function(event){
             event.preventDefault();
             var href = $(this).attr('href');
-            $.get('{% url 'breakdown:prev_node' %}', {
-                node_id: Number(href)
-            }).done(function (data) {
+            $.get('{% url 'breakdown:prev_node' %}').done(function (data) {
                  if (data.node.instruction) {
                     $.get('{% url 'breakdown:instruction' %}', {
                         step_id: Number(data.node.instruction)
@@ -179,10 +192,11 @@
         });
 
         $('body').on('change', 'select.branch-select', function (event) {
-
+{#            alert($('.mileage').val())#}
             var href = $(this).val();
             $.get('{% url 'breakdown:search' %}', {
-                node_id: Number(href)
+                node_id: Number(href),
+                mileage: Number($('.mileage').val())
             }).done(function (data) {
                 if (data.node.instruction) {
                     $.get('{% url 'breakdown:instruction' %}', {

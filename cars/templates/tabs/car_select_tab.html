@@ -8,7 +8,7 @@
             <div class="row">
                 <label>
                     Марка
-                    <select class="col-sm-12 brand-select" style="height: 45px; width: 190px; margin:10px" tabindex="1"  data-url="{% url 'cars:cars_models' %}">
+                    <select class="brand-select" style="height: 45px; width: 190px; margin:10px" tabindex="1"  data-url="{% url 'cars:cars_models' %}">
                         {% for car_brand in cars_brands %}
                             <option value="{{ car_brand.id }}">{{ car_brand }}</option>
                         {% endfor %}
@@ -16,21 +16,25 @@
                 </label>
                 <label>
                     Модель
-                    <select class="col-sm-12 model-select" style="height: 45px; width: 190px; margin:10px" tabindex="2" data-url="{% url 'cars:cars_years' %}">
+                    <select class="model-select" style="height: 45px; width: 190px; margin:10px" tabindex="2" data-url="{% url 'cars:cars_years' %}">
                     </select>
                 </label>
             </div>
             <div class="row">
                 <label>
                     Год выпуска
-                    <select class="col-sm-12 year-select" style="height: 45px; width: 190px; margin:10px" tabindex="3" data-url="{% url 'cars:cars_modifications' %}">
+                    <select class="year-select" style="height: 45px; width: 190px; margin:10px" tabindex="3" data-url="{% url 'cars:cars_modifications' %}">
                     </select>
                 </label>
                 <label>
                     Комплектация
-                    <select class="col-sm-12 modification-select" style="height: 45px; width: 190px; margin:10px" tabindex="3">
+                    <select class="modification-select" style="height: 45px; width: 190px; margin:10px" tabindex="3">
                     </select>
                 </label>
+            </div>
+            <div class="row">
+                <label>Пробег
+                <input type="number" placeholder="пробег" class="mileage"></label>
             </div>
             <br />
             <a class="btn btn-action btn-general btn-car" role="button" style="" href="">Продолжить</a>

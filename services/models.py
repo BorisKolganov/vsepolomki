@@ -17,6 +17,8 @@ class Service(models.Model):
     address = models.CharField(max_length=250, verbose_name=u'Адрес')
     about = models.TextField(max_length=1000, verbose_name=u'Об автосервисе', blank=True)
     site = models.CharField(max_length=50, verbose_name=u'Сайт', unique=True, blank=True)
+    longitude = models.FloatField(verbose_name=u'долгота', default=0)
+    latitude = models.FloatField(verbose_name=u'широта', default=0)
 
     def __unicode__(self):
         return self.name
@@ -27,7 +29,9 @@ class Service(models.Model):
             'phone': self.phone,
             'address': self.address,
             'about': self.about,
-            'site': self.site
+            'site': self.site,
+            'longitude': self.longitude,
+            'latitude': self.latitude
         }
         if breakdown_id:
             dict.update({
