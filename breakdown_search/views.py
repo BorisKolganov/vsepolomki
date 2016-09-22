@@ -57,8 +57,10 @@ class TreeSearch(View):
 class GetPrevNode(View):
     def get(self, request):
         try:
-            mileage = int(request.GET.get('mileage', 9999999))
-            if mileage == 0:
+            mileage = request.GET.get('mileage', 9999999)
+            if mileage:
+                mileage = int(request.GET.get('mileage', 9999999))
+            else:
                 mileage = 9999999
         except (ValueError, TypeError):
             return HttpResponseBadRequest()

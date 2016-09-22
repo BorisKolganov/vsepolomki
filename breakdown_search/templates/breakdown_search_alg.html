@@ -175,11 +175,10 @@
         $('body').on('click', 'a.return-back', function(event){
             event.preventDefault();
             var href = $(this).attr('href');
-            $.get('{% url 'breakdown:prev_node' %}').done(function (data) {
+            $.get('{% url 'breakdown:prev_node' %}', {mileage: $('.mileage').val()}).done(function (data) {
                  if (data.node.instruction) {
                     $.get('{% url 'breakdown:instruction' %}', {
-                        step_id: Number(data.node.instruction),
-                        mileage: $('.mileage').val()
+                        step_id: Number(data.node.instruction)
                     }).done(function (data) {
                         instructionDiv.show();
                         instructionDest.html(instructionTemplate(data));
@@ -230,7 +229,7 @@
                     model: $('.model-select').val()
                 }).done(function (data) {
                     questionDest.html(questionRowTemplate(data));
-                    instructionDest.hide();
+                    instructionDiv.hide();
                 });
             });
             tab0.click(function () {
