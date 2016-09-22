@@ -4,40 +4,41 @@
             <h4 class="page-title" style="font-size:30px" >Привет!</h4>
             <h5 class="page-title" style="font-size:24px">Для того, что бы начать поиск поломки, Вам необходимо выбрать марку, модель и год выпуска автомобиля.</h5>
         </header>
-        <div class="container con1" style="max-width:480px;">
-            <div class="row">
-                <label>
-                    Марка
-                    <select class="brand-select" style="height: 45px; width: 190px; margin:10px" tabindex="1"  data-url="{% url 'cars:cars_models' %}">
-                        {% for car_brand in cars_brands %}
-                            <option value="{{ car_brand.id }}">{{ car_brand }}</option>
-                        {% endfor %}
-                    </select>
-                </label>
-                <label>
-                    Модель
-                    <select class="model-select" style="height: 45px; width: 190px; margin:10px" tabindex="2" data-url="{% url 'cars:cars_years' %}">
-                    </select>
-                </label>
-            </div>
-            <div class="row">
-                <label>
-                    Год выпуска
-                    <select class="year-select" style="height: 45px; width: 190px; margin:10px" tabindex="3" data-url="{% url 'cars:cars_modifications' %}">
-                    </select>
-                </label>
-                <label>
-                    Комплектация
-                    <select class="modification-select" style="height: 45px; width: 190px; margin:10px" tabindex="3">
-                    </select>
-                </label>
-            </div>
-            <div class="row">
-                <label>Пробег
-                <input type="number" placeholder="пробег" class="mileage"></label>
-            </div>
+        <div class="container con1">
+        <form>
+          <div class="form-group">
+              <label for="brand-select">Марка</label>
+              <select class="brand-select form-control" id="brand-select" style="height: 45px;" data-url="{% url 'cars:cars_models' %}">
+                {% for car_brand in cars_brands %}
+                    <option value="{{ car_brand.id }}">{{ car_brand }}</option>
+                {% endfor %}
+              </select>
+          </div>
+          <div class="form-group">
+            <label for="model-select">Модель</label>
+              <select class="model-select form-control" id="model-select" style="height: 45px;" data-url="{% url 'cars:cars_years' %}">
+              </select>
+          </div>
+          <div class="form-group">
+           <label for="year-select">Год выпуска</label>
+              <select class="year-select form-control" id="year-select" style="height: 45px;" data-url="{% url 'cars:cars_modifications' %}">
+              </select>
+          </div>
+          <div class="form-group">
+           <label for="modification-select">Комплектация</label>
+              <select class="modification-select form-control" id="modification-select" style="height: 45px;">
+             </select>
+          </div>
+          <div class="form-group">
+              <label for="mileage">
+                Пробег
+              </label>
+                <input type="number" placeholder="пробег" id="mileage" class="mileage form-control">
+          </div>
+        <a class="btn btn-action btn-general btn-car" role="button" style="" href="">Продолжить</a>
+        </form>
             <br />
-            <a class="btn btn-action btn-general btn-car" role="button" style="" href="">Продолжить</a>
+
         </div>
     </article>
 </div>

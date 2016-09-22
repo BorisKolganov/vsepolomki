@@ -24,7 +24,7 @@
         var questionRowTemplate =
             _.template('<div class="row"> \
                 <article class="col-md-9 maincontent">\
-                    <% if (!node.root) { %>\
+                    <% if (!node.need_select) { %>\
                     <a class="return-back btn btn-warning" href="<%= node.id %>" style="background-color: #888888">Назад</a>\
                     <br />\
                     <header class="page-header" style="margin-top:0px"><br>\
@@ -35,10 +35,13 @@
                      <a class="btn btn-action btn-lg answer" style="margin: 1%;" href="<%= answer.id %>"><%= answer.text %></a>\
                      <% }); %>\
                     <%} else { %>\
+                      <% if (!node.root) { %>\
+                      <a class="return-back btn btn-warning" href="<%= node.id %>" style="background-color: #888888">Назад</a>\
+                      <% } %>\
                      <header class="page-header" style="margin-top:0px"><br>\
                         <h3 style="margin-top:0px;font-family: \'jura\'"><b><%= node.name %></b></h1>\
                         <h1 class="page-title" style="font-family: \'jura\'"><%= node.node_text %></h3>\
-                        <select class="branch-select" style="height: 45px; width: 190px; margin:10px" tabindex="3">\
+                        <select class="branch-select form-control" style="height: 45px; width: 190px; margin:10px">\
                         <option value=""> ----- </option>\
                     <% _.each(answers, function(answer) { %>\
                         <option value="<%= answer.id %>"> <%= answer.text %> </option>\

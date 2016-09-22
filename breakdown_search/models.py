@@ -15,6 +15,7 @@ class Node(models.Model):
     breakdowns = models.ManyToManyField("cars.Breakdown", blank=True, verbose_name=u'Список возможных поломог')
     mileage = models.IntegerField(default=0, verbose_name=u'Показывать ноду, если пробег больше')
     low_mileage = models.IntegerField(default=10000000, verbose_name=u'Показывать ноду, если пробег меньше')
+    need_select = models.BooleanField(default=False, verbose_name=u'Использовать для ответов в верстке селект')
 
     def __unicode__(self):
         return self.name + ' ' + self.node_text
@@ -28,6 +29,7 @@ class Node(models.Model):
             'root': self.root,
             'instruction': self.instruction.id if self.instruction else None,
             'mileage': self.mileage,
+            'need_select': self.need_select,
             'breakdowns': [breakdown.as_dict() for breakdown in self.breakdowns.all().filter(mileage__lte=mileage)] if self.breakdowns else None
         }
 
