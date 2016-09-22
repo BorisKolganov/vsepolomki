@@ -230,6 +230,7 @@
                     model: $('.model-select').val()
                 }).done(function (data) {
                     questionDest.html(questionRowTemplate(data));
+                    instructionDest.hide();
                 });
             });
             tab0.click(function () {
