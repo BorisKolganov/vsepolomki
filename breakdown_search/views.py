@@ -56,6 +56,12 @@ class TreeSearch(View):
 
 class GetPrevNode(View):
     def get(self, request):
+        try:
+            mileage = int(request.GET.get('mileage', 9999999))
+            if mileage == 0:
+                mileage = 9999999
+        except (ValueError, TypeError):
+            return HttpResponseBadRequest()
         l = request.session['history']
         l.pop()
         node = get_object_or_404(Node, id=l[-1])
@@ -63,7 +69,7 @@ class GetPrevNode(View):
         if not node:
             return Http404()
         context = {'node': node.as_dict(),
-                   'answers': [{'id': answer.id, 'text': answer.answer_text} for answer in node.node_set.all()]}
+                   'answers': [{'id': answer.id, 'text': answer.answer_text} for answer in node.node_set.all() if answer.mileage <= mileage and answer.low_mileage >= mileage]}
         return JsonResponse(context)
 
 

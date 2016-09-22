@@ -178,7 +178,8 @@
             $.get('{% url 'breakdown:prev_node' %}').done(function (data) {
                  if (data.node.instruction) {
                     $.get('{% url 'breakdown:instruction' %}', {
-                        step_id: Number(data.node.instruction)
+                        step_id: Number(data.node.instruction),
+                        mileage: $('.mileage').val()
                     }).done(function (data) {
                         instructionDiv.show();
                         instructionDest.html(instructionTemplate(data));
