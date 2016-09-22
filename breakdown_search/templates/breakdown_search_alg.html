@@ -32,6 +32,7 @@
                         <h3 class="page-title" style="font-family: \'jura\'"><%= node.node_text %></h3>\
                     </header>\
                     <% _.each(answers, function(answer) { %> \
+                    <% console.log(answer); %>\
                      <a class="btn btn-action btn-lg answer" style="margin: 1%;" href="<%= answer.id %>"><%= answer.text %></a>\
                      <% }); %>\
                     <%} else { %>\

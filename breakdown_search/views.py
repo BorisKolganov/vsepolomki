@@ -41,17 +41,15 @@ class TreeSearch(View):
             node = get_object_or_404(Node, id=node_id)
             root_node = int(request.GET.get('root_node', 0))
             mileage = int(request.GET.get('mileage', 9999999))
-            print request.GET.get('mileage')
             if mileage == 0:
                 mileage = 9999999
-            print mileage
         except (ValueError, TypeError):
             return HttpResponseBadRequest()
         l = request.session['history']
         l.append(node.id)
         request.session['history'] = l
         context = {'node': node.as_dict(mileage=mileage),
-                   'answers': [{'id': answer.id, 'text': answer.answer_text} if answer.mileage <= mileage and answer.low_mileage >= mileage else None for answer in node.node_set.all()],
+                   'answers': [{'id': answer.id, 'text': answer.answer_text} for answer in node.node_set.all() if answer.mileage <= mileage and answer.low_mileage >= mileage],
                    'root_node': root_node}
         return JsonResponse(context)
 
